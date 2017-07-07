@@ -4,7 +4,7 @@ const cors = require('cors'),
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const formController = require('./formController');
+const formController = require('./../controller/formController');
 
 const PORT = 3000;
 
@@ -16,16 +16,14 @@ mongoose.connection.once('open', () => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// const formRouter = express.Router();
-
-// formRouter.post('/', formController.createForm);
-
 
 app.get('/', (req, res) => {
   res.render('./../../post.html');
 });
 
-app.post('/', formController.createForm);
+app.post('/post', formController.createForm, (req, res, next => {
+  res.render('./../../post.html');
+}));
 
 
 

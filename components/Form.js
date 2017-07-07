@@ -1,44 +1,67 @@
+'use strict'
 import React, { Component } from 'react';
 
 
-class Form extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
+class FormOfInformation extends React.Component {
+  constructor() {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
 
   handleSubmit(event) {
     event.preventDefault();
 
-  }
+    let titleValue = document.getElementById('title').value
+    let descriptionValue = document.getElementById('title').value
+    let addressValue = document.getElementById('title').value
+    let payValue = document.getElementById('title').value
+
+    let data = {
+      'title': titleValue,
+      'description': descriptionValue,
+      'address': addressValue,
+      'pay': payValue
+    }
+
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/post',
+      data: data
+    })
+    .done(function(data) {
+      self.clearForm()
+    })
+    .fail(function(err) {
+      console.log('failed to register');
+    });
+
+
+}
+
 
   render() {
     return (
       <form onSubmit={this.handleSubmit} method='post'>
         <label>
           Title:
-          <input name= "title" type="text" value={this.state.title} />
+          <input id="title" type="text" />
         </label>
         <br />
         <br />
          <label>
           Description:
-          <input name= "description" type="text" value={this.state.description} />
+          <input id="description" type="text" />
         </label>
         <br />
         <br />
          <label>
           Address:
-          <input name= "address" type="text" value={this.state.address} />
+          <input id="address" type="text" />
         </label>
         <br />
         <br />
          <label>
           Pay:
-          <input name= "pay" type="text" value={this.state.pay} />
+          <input id="pay" type="text" />
         </label>
         <br />
         <br />
@@ -49,7 +72,7 @@ class Form extends React.Component {
 }
 
 ReactDOM.render(
-  <Name />,
+  <FormOfInformation />,
   document.getElementById('root')
 );
 

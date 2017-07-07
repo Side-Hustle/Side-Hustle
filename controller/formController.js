@@ -4,12 +4,12 @@ const Form = require('./../model/formModel');
 
 const formController = {
 
-  createForm(req, res) {
+  createForm(req, res, next) {
     let form = new Form({
-      title: req.body.title,
-      description: req.body.description,
-      address: req.body.address,
-      pay: req.body.pay,
+      title: req.body.data.title,
+      description: req.body.data.description,
+      address: req.body.data.address,
+      pay: req.body.data.pay,
     })
     form.save(function(err, doc) {
       if (err) {
@@ -18,7 +18,8 @@ const formController = {
         res.send(doc);
       }
     })
-  },
+    next()
+  }
 
 }
 

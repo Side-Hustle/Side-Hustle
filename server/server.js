@@ -1,24 +1,34 @@
-const express = require('express'),
-      app = express(),
-      router = require('./router'),
-      cors = require('cors'),
-      bodyParser = require('body-parser'),
-      mongoose = require('mongoose'),
-      config = require('./config/main');
+const express = require('express');
+const app = express();
+const cors = require('cors'),
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-//always use environment variables to store this information
-//and call it in a seperate file.
-const databse =   'mongodb://username:password@location.mlab.com:port/database'
+const formController = require('./formController');
 
-// Database Setup
-mongoose.connect(config.database);
+const PORT = 3000;
 
-// Import routes to be served
-app.use(bodyParser.urlencoded({ extended: false }));
+mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds151752.mlab.com:51752/sidehustle');
+mongoose.connection.once('open', () => {
+  console.log('Connected to Database');
+});
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
-router(app);
 
-// Start the server
-app.listen(config.port);
-console.log('Your server is running on port ' + config.port + '.');
+// const formRouter = express.Router();
+
+// formRouter.post('/', formController.createForm);
+
+
+app.get('/', (req, res) => {
+  res.render('./../../post.html');
+});
+
+app.post('/', formController.createForm);
+
+
+
+
+
+app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));

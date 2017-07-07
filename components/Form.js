@@ -1,6 +1,4 @@
-'use strict'
 import React, { Component } from 'react';
-
 
 class FormOfInformation extends React.Component {
   constructor() {
@@ -10,16 +8,11 @@ class FormOfInformation extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    let titleValue = document.getElementById('title').value
-    let descriptionValue = document.getElementById('title').value
-    let addressValue = document.getElementById('title').value
-    let payValue = document.getElementById('title').value
-
     let data = {
-      'title': titleValue,
-      'description': descriptionValue,
-      'address': addressValue,
-      'pay': payValue
+      'title': this.inputTitle.value,
+      'description': this.inputDescription.value,
+      'address': this.inputAddress.value,
+      'pay': this.inputPay.value
     }
 
     $.ajax({
@@ -27,14 +20,10 @@ class FormOfInformation extends React.Component {
       url: 'http://localhost:3000/post',
       data: data
     })
-    .done(function(data) {
-      self.clearForm()
-    })
+    .done()
     .fail(function(err) {
       console.log('failed to register');
     });
-
-
 }
 
 
@@ -43,25 +32,25 @@ class FormOfInformation extends React.Component {
       <form onSubmit={this.handleSubmit} method='post'>
         <label>
           Title:
-          <input id="title" type="text" />
+          <input id="title" type="text" inputRef = {(input) => this.inputTitle = input }/>
         </label>
         <br />
         <br />
          <label>
           Description:
-          <input id="description" type="text" />
+          <input id="description" type="text" inputRef = {(input) => this.inputDescription = input }/>
         </label>
         <br />
         <br />
          <label>
           Address:
-          <input id="address" type="text" />
+          <input id="address" type="text" inputRef = {(input) => this.inputAddress = input }/>
         </label>
         <br />
         <br />
          <label>
           Pay:
-          <input id="pay" type="text" />
+          <input id="pay" type="text" inputRef = {(input) => this.inputPay = input }/>
         </label>
         <br />
         <br />
@@ -75,7 +64,3 @@ ReactDOM.render(
   <FormOfInformation />,
   document.getElementById('root')
 );
-
-
-
-

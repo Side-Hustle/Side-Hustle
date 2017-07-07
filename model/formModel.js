@@ -9,5 +9,4 @@ const formSchema = new Schema({
   pay : {type: String, required: true}
 });
 
-
 module.exports = mongoose.model('Form', formSchema);

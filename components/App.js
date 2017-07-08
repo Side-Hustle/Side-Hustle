@@ -40,8 +40,8 @@ class App extends Component {
             <Router>
                 <div>
                     <ul>
-                        <Link to="/PostJob">PostJob</Link>
-                        <Link to="/ViewJob">ViewJob</Link>
+                        <button><Link to="/PostJob">PostJob</Link></button>
+                        <button><Link to="/ViewJob">ViewJob</Link></button>
                         {/*<button onClick={this.retrieveDataFromServer}></button>*/}
                     </ul>
                    <Route path="/PostJob" component={FormOfInformation} />

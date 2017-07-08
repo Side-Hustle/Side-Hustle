@@ -33,27 +33,31 @@ class FormOfInformation extends React.Component {
     mapController.hideMap();
     return (
       <form onSubmit={this.handleSubmit} method='post'>
-        <label>
-          Title:
-          <input id="title" type="text" ref = {(input) => this.inputTitle = input }/>
+        <label className="inputText">
+          Title 
+          <span>  </span>
+          <input className="post-fields" id="title" type="text" ref = {(input) => this.inputTitle = input }/>
         </label>
         <br />
         <br />
-         <label>
-          Description:
-          <input id="description" type="text" ref = {(input) => this.inputDescription = input }/>
+        <label className="inputText">
+          Description 
+          <span>  </span>
+          <input className="post-fields" id="description" type="text" ref = {(input) => this.inputDescription = input }/>
         </label>
         <br />
         <br />
-         <label>
-          Address:
-          <input id="address" type="text" ref = {(input) => this.inputAddress = input }/>
+        <label className="inputText">
+          Address 
+          <span>  </span>
+          <input className="post-fields" id="address" type="text" ref = {(input) => this.inputAddress = input }/>
         </label>
         <br />
         <br />
-         <label>
-          Pay:
-          <input id="pay" type="text" ref = {(input) => this.inputPay = input }/>
+        <label className="inputText">
+          Pay
+          <span>  </span>
+          <input className="post-fields" id="pay" type="text" ref = {(input) => this.inputPay = input }/>
         </label>
         <br />
         <br />

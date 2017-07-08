@@ -11,6 +11,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.removeFloatFromRoot = this.removeFloatFromRoot.bind(this);
+        this.addFloatFromRoot = this.addFloatFromRoot.bind(this);
     }
 
     retrieveDataFromServer() {
@@ -28,6 +30,16 @@ class App extends Component {
         console.log('passed');
     }
 
+    removeFloatFromRoot() {
+        let root = document.getElementById('root');
+        if (root.style.float = 'right') root.style.float = 'none';
+    }
+
+    addFloatFromRoot() {
+        let root = document.getElementById('root');
+        if (root.style.float = 'none') root.style.float = 'right';
+    }
+
     render() {
         // ViewJob Component with relevant props passed down 
         const viewJob = (props) => {
@@ -35,16 +47,29 @@ class App extends Component {
                 <ViewJob jobs={this.state.jobs} />
             );
         }
+        const styles = {
+            float: 'none',
+            'text-align': 'center',
+        }
+
+        const form = (props) => {
+            return (
+                <FormOfInformation style={styles} />
+            )
+        }
+        
         return (
             // React Router is used to render components based on the route specified
             <Router>
                 <div>
                     <ul>
-                        <button><Link to="/PostJob">PostJob</Link></button>
-                        <button><Link to="/ViewJob">ViewJob</Link></button>
+                        <button onClick={this.removeFloatFromRoot}><Link to="/PostJob">PostJob</Link></button>
+                        <button onClick={this.addFloatFromRoot}><Link to="/ViewJob">ViewJob</Link></button>
                         {/*<button onClick={this.retrieveDataFromServer}></button>*/}
                     </ul>
-                   <Route path="/PostJob" component={FormOfInformation} />
+                <div id='postjob'>
+                   <Route path="/PostJob" component={form} />
+                </div>
                    <Route path="/ViewJob" component={viewJob} />
                 </div>
             </Router>

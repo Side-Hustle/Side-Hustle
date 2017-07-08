@@ -48,12 +48,6 @@ class App extends Component {
         this.state = {'data': data};
     }
 
-    static updateData(data) {
-        let jobs = data.map((dataPoint) => {
-            return <Job title={dataPoint.title} description={dataPoint.description} pay={dataPoint.pay} location={dataPoint.address}/>
-        });
-    }
-
     retrieveDataFromServer() {
         $.get('http://localhost:3000/api', (data) => {
         let validLocations = mapController.getDistance(data);

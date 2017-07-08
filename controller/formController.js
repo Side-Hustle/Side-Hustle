@@ -22,7 +22,6 @@ const formController = {
         res.send(doc);
       }
     })
-<<<<<<< HEAD
 
   User.findByIdAndUpdate({username: red.body.data.username}, 
   { $set: { 
@@ -38,8 +37,6 @@ const formController = {
 
     next()
 
-=======
->>>>>>> 11cbdc4bda6a018dd6c02b2164c72cc9de1178f6
   }
 
 }

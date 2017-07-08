@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import mapController from '../controller/mapController.js';
 
 class FormOfInformation extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class FormOfInformation extends React.Component {
 
 
   render() {
+    mapController.hideMap();
     return (
       <form onSubmit={this.handleSubmit} method='post'>
         <label>

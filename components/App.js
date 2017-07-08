@@ -5,6 +5,7 @@ import Job from './Job.js';
 import FormOfInformation from './Form.js';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import $ from 'jquery';
+import mapController from './../controller/mapController'
 
 // Mock Data
 
@@ -47,13 +48,22 @@ class App extends Component {
         this.state = {'data': data};
     }
 
-    retrieveDataFromServer() {
-        $.get('http://localhost:3000/api', (data) => {
+    static updateData(data) {
         let jobs = data.map((dataPoint) => {
             return <Job title={dataPoint.title} description={dataPoint.description} pay={dataPoint.pay} location={dataPoint.address}/>
         });
-        this.setState({'jobs': jobs});
-            // return JSON.parse(data);
+    }
+
+    retrieveDataFromServer() {
+        $.get('http://localhost:3000/api', (data) => {
+        let validLocations = mapController.getDistance(data);
+        validLocations.then(jobdata => {
+            mapController.filteredData = data;
+            let jobs = jobdata.map((dataPoint) => {
+            return <Job title={dataPoint.title} description={dataPoint.description} pay={dataPoint.pay} location={dataPoint.address}/>
+            });
+            this.setState({'jobs': jobs})
+          });
         });
     }
     // Creates a job component for each job request in the database

@@ -7,62 +7,25 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import $ from 'jquery';
 import mapController from './../controller/mapController'
 
-// Mock Data
-
-let data =  [
-    {
-        title: 'Gardener',
-        description: 'Pull weeds',
-        pay: 50,
-        location: 'San Antonio'
-    },
-    {
-        title: 'Snow Shoveler',
-        description: 'Shove snow',
-        pay: 50,
-        location: 'Austin'
-    },
-    {
-        title: 'Painter',
-        description: 'Paint walls',
-        pay: 50,
-        location: 'San Francisco'
-    },
-    {
-        title: 'Carpenter',
-        description: 'Install carpet',
-        pay: 50,
-        location: 'Venice Beach'
-    },
-    {
-        title: 'Handyman',
-        description: 'Fix toilet',
-        pay: 50,
-        location: 'Santa Barbara'
-    }
-];
-
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {'data': data};
+        this.state = {};
     }
 
     retrieveDataFromServer() {
         $.get('http://localhost:3000/api', (data) => {
-        let validLocations = mapController.getDistance(data);
-        validLocations.then(jobdata => {
-            mapController.filteredData = data;
-            let jobs = jobdata.map((dataPoint) => {
-            return <Job title={dataPoint.title} description={dataPoint.description} pay={dataPoint.pay} location={dataPoint.address}/>
-            });
-            this.setState({'jobs': jobs})
+          let validLocations = mapController.getDistance(data);
+          validLocations.then(jobdata => {
+            mapController.filteredData = jobdata;
+            this.setState({'jobs': jobdata})
           });
         });
     }
     // Creates a job component for each job request in the database
     componentDidMount() {
         this.retrieveDataFromServer();
+        console.log('passed');
     }
 
     render() {
@@ -77,8 +40,8 @@ class App extends Component {
             <Router>
                 <div>
                     <ul>
-                        <li><Link to="/PostJob">PostJob</Link></li>
-                        <li><Link to="/ViewJob">ViewJob</Link></li>
+                        <Link to="/PostJob">PostJob</Link>
+                        <Link to="/ViewJob">ViewJob</Link>
                         {/*<button onClick={this.retrieveDataFromServer}></button>*/}
                     </ul>
                    <Route path="/PostJob" component={FormOfInformation} />

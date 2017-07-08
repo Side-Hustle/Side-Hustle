@@ -28,6 +28,7 @@
     "nodemon": "^1.11.0",
     "path": "^0.12.7",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.0",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1"
   },

@@ -9,10 +9,15 @@ class ViewJob extends Component {
     }
 
     render() {
+        let data = this.props.jobs;
+        let jobs = data.map((dataPoint) => {
+            return <Job title={dataPoint.title} description={dataPoint.description} pay={dataPoint.pay} location={dataPoint.address}/>
+        });
+        // executes mapController.showMap before this.props.jobs
         mapController.showMap();
         return (
             <div id='viewjobs'>
-                {this.props.jobs}
+                {jobs}
             </div>
         )
     }

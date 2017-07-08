@@ -4,7 +4,9 @@ import App from './../components/App'
 const mapController = {
   map: {},
   pos: {lat: 33.979089, lng: -118.422812},
+  infoWindow: null,
   filteredData: [],
+
   markers: [], 
 
   showMap() {
@@ -18,17 +20,22 @@ const mapController = {
     document.getElementById("map").style.display = "none";
   },
 
-  populateInfoWindow(marker, infowindow) {
-    if (infowindow.marker != marker) {
-      infowindow.marker = marker;
-      infowindow.setContent('<div>' + 
+  sideBarClick(ind) {
+    let marker = mapController.markers[ind];
+    mapController.populateInfoWindow(marker);
+  },
+
+  populateInfoWindow(marker) {
+    if (mapController.infoWindow.marker != marker) {
+      mapController.infoWindow.marker = marker;
+      mapController.infoWindow.setContent('<div>' + 
         '<h2>' + marker.title + '</h4>'  +
         '<h3>' + 'Pay: ' + marker.pay + '</h3>'  +
         '<h4>' + marker.address + '</h4>' + 
         '<h4>' + marker.description + '</h4>' + '</div>');
-      infowindow.open(map, marker);
-      infowindow.addListener('closeclick', function() {
-        infowindow.marker = null;
+      mapController.infoWindow.open(map, marker);
+      mapController.infoWindow.addListener('closeclick', function() {
+        mapController.infoWindow.marker = null;
       });
     }
   },
@@ -54,10 +61,9 @@ const mapController = {
           id: index
         });
         mapController.markers.push(marker);
-        let largeInfowindow = new google.maps.InfoWindow();
         marker.addListener('click', function() {
           let self = this; 
-          mapController.populateInfoWindow(self, largeInfowindow);
+          mapController.populateInfoWindow(self);
         });
         marker.setMap(mapController.map);
       });
@@ -137,6 +143,7 @@ const mapController = {
       zoom: 11,
       mapTypeControl: true 
     });
+    mapController.infoWindow = new google.maps.InfoWindow();
     mapController.getLocation();
   },
 

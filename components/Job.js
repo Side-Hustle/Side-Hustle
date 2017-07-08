@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom'
+import { render } from 'react-dom';
+import mapController from './../controller/mapController';
 
 class Job extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class Job extends Component {
 
     render() {
         return (
-        <div className="job">
+        <div className="job" onClick={() => mapController.sideBarClick(this.props.index)}>
             <p><strong>Title:</strong> {this.props.title}</p>
             <p><strong>Description:</strong> {this.props.description}</p>
             <p><strong>Pay:</strong> {this.props.pay}</p>

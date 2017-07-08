@@ -30,22 +30,20 @@ const mapController = {
     }
   },
   
-  getGeoCode() {
+  getGeoCode(ad) {
     const geocoder = new google.maps.Geocoder();
-    geocoder.geocode( { 'address': destinationA}, function(results, status) {
+    geocoder.geocode( {'address': ad}, function(results, status) {
       if (status == 'OK') {
-        console.log(results[0].geometry.location.lat());
-            console.log(results[0].geometry.location.lng());
+        return ({lat:results[0].geometry.location.lat(), lng:results[0].geometry.location.lng()})
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
     });
   },
   
-  getAddress() {
+  getAddress(geo) {
     const geocoder = new google.maps.Geocoder();
-    var latlng = {lat: 37.904538, lng: -122.17094299999997};
-    geocoder.geocode({'location': latlng}, function(results, status) {
+    geocoder.geocode({'location': geo}, function(results, status) {
       if (status === 'OK') {
         if (results[1]) {
           console.log(results[0].formatted_address);
@@ -72,11 +70,12 @@ const mapController = {
   },
   
   initMap() {
-    const currentLocation = mapController.getLocation();
+    //const currentLocation = mapController.getLocation();
+    mapController.setMap();
   },
   
   setMap(loc) {
-    mapController.pos = loc; 
+    mapController.pos = {lat: 33.979089, lng: -118.422812}; 
 
     mapController.map = new google.maps.Map(document.getElementById('map'), {
       center: loc,

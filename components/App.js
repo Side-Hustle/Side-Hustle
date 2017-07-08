@@ -17,12 +17,16 @@ class App extends Component {
 
     retrieveDataFromServer() {
         $.get('http://localhost:3000/api', (data) => {
-          let validLocations = mapController.getDistance(data);
-          validLocations.then(jobdata => {
-            mapController.filteredData = jobdata;
-            this.setState({'jobs': jobdata})
-          });
+          this.parseDataFromServer(data);
         });
+    }
+
+    parseDataFromServer(data) {
+      let validLocations = mapController.getDistance(data);
+       validLocations.then(jobdata => {
+         mapController.filteredData = jobdata;
+         this.setState({'jobs': jobdata})
+       });
     }
     // Creates a job component for each job request in the database
     componentDidMount() {

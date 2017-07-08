@@ -9,5 +9,15 @@
 
 }
 #root {
-	float: right;
+        float: right;
+}
+
+#viewjobs {
+        width: 500px;
+}
+
+.job {
+        text-align: center;
+        font-size: 14px;
+        border: 1px solid #eee;
 }

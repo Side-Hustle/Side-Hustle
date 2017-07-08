@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom'
-import ViewJob from './viewJob.js'
-import Job from './Job.js'
+import { render } from 'react-dom';
+import ViewJob from './viewJob.js';
+import Job from './Job.js';
+import FormOfInformation from './Form.js';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 // Mock Data
-    // In the future, we can make a get request to our API route to get the data directly
 
 let data =  [
     {
@@ -45,10 +46,7 @@ class App extends Component {
         this.state = {'data': data};
     }
 
-    loadJobsFromServer(data) {
-        
-    }
-
+    // Creates a job component for each job request in the database
     componentDidMount() {
         let data = this.state.data;
         let jobs = data.map((dataPoint) => {
@@ -58,10 +56,24 @@ class App extends Component {
     }
 
     render() {
+        // ViewJob Component with relevant props passed down 
+        const viewJob = (props) => {
+            return (
+                <ViewJob jobs={this.state.jobs} />
+            );
+        }
         return (
-            <div>
-                <ViewJob jobs={this.state.jobs}/>
-            </div>
+            // React Router is used to render components based on the route specified
+            <Router>
+                <div>
+                    <ul>
+                        <li><Link to="/PostJob">PostJob</Link></li>
+                        <li><Link to="/ViewJob">ViewJob</Link></li>
+                    </ul>
+                   <Route path="/PostJob" component={FormOfInformation} />
+                   <Route path="/ViewJob" component={viewJob} />
+                </div>
+            </Router>
         )
     }
 }

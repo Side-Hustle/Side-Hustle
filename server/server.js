@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + './../static/post.html'));
 });
 
+<<<<<<< HEAD
 app.get('/create', userController.createUser, ((req, res, next) => {
   res.sendFile(path.join(__dirname + './../static/post.html'));
 }));
@@ -35,5 +36,11 @@ app.get('/create', userController.createUser, ((req, res, next) => {
 app.post('/post', formController.createForm, ((req, res, next) => {
   res.sendFile(path.join(__dirname + './../static/post.html'));
 }));
+=======
+app.post('/post', formController.createForm);
+// , ((req, res, next) => {
+//   res.sendFile(path.join(__dirname + './../static/post.html'));
+// }));
+>>>>>>> 11cbdc4bda6a018dd6c02b2164c72cc9de1178f6
 
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));

@@ -7,11 +7,6 @@ class ViewJob extends Component {
         super(props)
     }
 
-    // loadJobsFromServer
-    // add a section for Google Maps
-        // this is going to be a grid layout with 2 sections
-        // May be changed later
-
     render() {
         return (
             <div id='viewjobs'>

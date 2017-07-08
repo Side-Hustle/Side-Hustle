@@ -5,6 +5,7 @@ import Job from './Job.js';
 import FormOfInformation from './Form.js';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import $ from 'jquery';
+import mapController from './../controller/mapController'
 
 class App extends Component {
     constructor(props) {
@@ -14,8 +15,11 @@ class App extends Component {
 
     retrieveDataFromServer() {
         $.get('http://localhost:3000/api', (data) => {
-        this.setState({'jobs': data});
-            // return JSON.parse(data);
+          let validLocations = mapController.getDistance(data);
+          validLocations.then(jobdata => {
+            mapController.filteredData = jobdata;
+            this.setState({'jobs': jobdata})
+          });
         });
     }
     // Creates a job component for each job request in the database

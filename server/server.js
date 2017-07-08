@@ -25,8 +25,9 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + './../static/post.html'));
 });
 
-app.post('/post', formController.createForm, ((req, res, next) => {
-  res.sendFile(path.join(__dirname + './../static/post.html'));
-}));
+app.post('/post', formController.createForm);
+// , ((req, res, next) => {
+//   res.sendFile(path.join(__dirname + './../static/post.html'));
+// }));
 
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));

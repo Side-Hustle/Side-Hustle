@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 class FormOfInformation extends React.Component {
-  constructor() {
+  constructor(props) {
+    super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -14,7 +15,7 @@ class FormOfInformation extends React.Component {
       'address': this.inputAddress.value,
       'pay': this.inputPay.value
     }
-
+    console.log(data.title);
     $.ajax({
       type: 'POST',
       url: 'http://localhost:3000/post',
@@ -32,25 +33,25 @@ class FormOfInformation extends React.Component {
       <form onSubmit={this.handleSubmit} method='post'>
         <label>
           Title:
-          <input id="title" type="text" inputRef = {(input) => this.inputTitle = input }/>
+          <input id="title" type="text" ref = {(input) => this.inputTitle = input }/>
         </label>
         <br />
         <br />
          <label>
           Description:
-          <input id="description" type="text" inputRef = {(input) => this.inputDescription = input }/>
+          <input id="description" type="text" ref = {(input) => this.inputDescription = input }/>
         </label>
         <br />
         <br />
          <label>
           Address:
-          <input id="address" type="text" inputRef = {(input) => this.inputAddress = input }/>
+          <input id="address" type="text" ref = {(input) => this.inputAddress = input }/>
         </label>
         <br />
         <br />
          <label>
           Pay:
-          <input id="pay" type="text" inputRef = {(input) => this.inputPay = input }/>
+          <input id="pay" type="text" ref = {(input) => this.inputPay = input }/>
         </label>
         <br />
         <br />
@@ -60,7 +61,4 @@ class FormOfInformation extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <FormOfInformation />,
-  document.getElementById('root')
-);
+export default FormOfInformation;

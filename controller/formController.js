@@ -18,8 +18,14 @@ const formController = {
         res.send(doc);
       }
     })
-  }
+  },
 
+  pullData(req, res) {
+    Form.find({}, ((err, result) => {
+      if (err) return err;
+      res.json(result);
+    }));
+  }
 }
 
 module.exports = formController;

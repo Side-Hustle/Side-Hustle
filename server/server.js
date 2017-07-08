@@ -25,6 +25,8 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + './../static/post.html'));
 });
 
+app.get('/api', formController.pullData);
+
 app.post('/post', formController.createForm);
 // , ((req, res, next) => {
 //   res.sendFile(path.join(__dirname + './../static/post.html'));

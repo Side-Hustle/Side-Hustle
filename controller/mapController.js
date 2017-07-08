@@ -5,6 +5,7 @@ const mapController = {
   map: {},
   pos: {lat: 33.979089, lng: -118.422812},
   infoWindow: null,
+  data: [],
   filteredData: [],
 
   markers: [], 
@@ -20,6 +21,23 @@ const mapController = {
     document.getElementById("map").style.display = "none";
   },
 
+  setLocation(ad) {
+    const input = document.getElementById("locationInput").value; 
+    console.log('input is', input);
+    const promise = new Promise((resolve, reject) => {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode( {'address': input}, function(results, status) {
+      if (status == 'OK') {
+        resolve({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+    });
+    return promise; 
+
+ },
+
   sideBarClick(ind) {
     let marker = mapController.markers[ind];
     mapController.populateInfoWindow(marker);
@@ -29,10 +47,10 @@ const mapController = {
     if (mapController.infoWindow.marker != marker) {
       mapController.infoWindow.marker = marker;
       mapController.infoWindow.setContent('<div>' + 
-        '<h2>' + marker.title + '</h4>'  +
-        '<h3>' + 'Pay: ' + marker.pay + '</h3>'  +
-        '<h4>' + marker.address + '</h4>' + 
-        '<h4>' + marker.description + '</h4>' + '</div>');
+        '<h3>' + marker.title + '</h3>'  +
+        '<p>' + 'Pay: ' + marker.pay + '</p>'  +
+        '<p>' + marker.address + '</p>' + 
+        '<p>' + marker.description + '</p>' + '</div>');
       mapController.infoWindow.open(map, marker);
       mapController.infoWindow.addListener('closeclick', function() {
         mapController.infoWindow.marker = null;
@@ -42,6 +60,9 @@ const mapController = {
   
 
   placeMarkers(data) {
+    mapController.markers.forEach(marker => {
+      marker.setMap(null);
+    });
     mapController.markers = [];
     data.forEach((loc, index) => {
       let geo = new Promise((resolve, reject) => {
@@ -71,6 +92,7 @@ const mapController = {
   },
 
   getDistance(data) {
+    mapController.data = data; 
     let addresses = data.map(item => item.address);
     const service = new google.maps.DistanceMatrixService();
     let promise = new Promise(function(resolve, reject) {
@@ -125,7 +147,8 @@ const mapController = {
   },
   
   getLocation() {
-    if (navigator.geolocation) {
+    const promise = new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
         console.log("Geolocation is not supported by this browser.");
@@ -134,7 +157,10 @@ const mapController = {
     function showPosition(position) {
       mapController.pos = {lat: position.coords.latitude, lng: position.coords.longitude};
       mapController.map.setCenter(mapController.pos);
+      resolve(mapController.pos);
     }
+    }); 
+    return promise; 
   },
   
   setMap(loc) {

@@ -11,6 +11,9 @@
 #root {
         float: right;
 }
+#location {
+  text-align: center; 
+}
 
 #viewjobs {
         width: 500px;

@@ -1,7 +1,6 @@
 'use strict';
 
 const Form = require('./../model/formModel');
-const User = require('./../model/userModel');
 
 const formController = {
 
@@ -12,31 +11,13 @@ const formController = {
       address: req.body.address,
       pay: req.body.pay,
     })
-
-    let formDoc;
     form.save(function(err, doc) {
       if (err) {
-        res.send(err);
+        res.sendStatus(200)
       } else {
-        formDoc = doc;
         res.send(doc);
       }
     })
-
-  User.findByIdAndUpdate({username: red.body.data.username}, 
-  { $set: { 
-    title: formDoc.title,
-    description: formDoc.description,
-    address: formDoc.address,
-    pay: formDoc.pay, 
-  }},
-    { new: true }, function (err, user) {
-    if (err) return handleError(err);
-    res.send(user);
-  });
-
-    next()
-
   }
 
 }

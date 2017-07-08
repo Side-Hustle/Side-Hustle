@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const userController = require('./../controller/userController');
 const formController = require('./../controller/formController');
 
 const PORT = 3000;
@@ -20,7 +19,6 @@ app.use('/static', express.static(__dirname +'./../static'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 
 app.get('/', (req, res) => {

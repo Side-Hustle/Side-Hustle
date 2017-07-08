@@ -8,7 +8,7 @@ class FormOfInformation extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    
+
     let data = {
       'title': this.inputTitle.value,
       'description': this.inputDescription.value,

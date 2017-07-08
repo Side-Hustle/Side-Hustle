@@ -4,7 +4,9 @@ module.exports = {
   entry: './index.js',
   output: {
     path: path.resolve('build'),
-    filename: 'bundle.js'
+    filename: 'bundle.js', 
+    libraryTarget: 'var',
+    library: 'EntryPoint'
   },
   module: {
     loaders: [{

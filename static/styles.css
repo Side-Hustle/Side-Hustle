@@ -1,8 +1,13 @@
+
 #map {
-    width: 50%;
-    float: left;
+        bottom:0px;
+        height: 100%;
+        left: 0px;
+        position: absolute;
+        right: 500px;
+        display: none;
+
 }
 #root {
-    width: 50%;
-    float: right;
+	float: right;
 }

@@ -21,7 +21,11 @@ const mapController = {
   populateInfoWindow(marker, infowindow) {
     if (infowindow.marker != marker) {
       infowindow.marker = marker;
-      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.setContent('<div>' + 
+        '<h2>' + marker.title + '</h4>'  +
+        '<h3>' + 'Pay: ' + marker.pay + '</h3>'  +
+        '<h4>' + marker.address + '</h4>' + 
+        '<h4>' + marker.description + '</h4>' + '</div>');
       infowindow.open(map, marker);
       infowindow.addListener('closeclick', function() {
         infowindow.marker = null;
@@ -43,6 +47,9 @@ const mapController = {
         let marker = new google.maps.Marker({
           position: data,
           title: loc.title,
+          address: loc.address, 
+          pay: loc.pay,
+          description: loc.description,
           animation: google.maps.Animation.DROP,
           id: index
         });

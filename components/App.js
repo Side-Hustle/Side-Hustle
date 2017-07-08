@@ -4,6 +4,7 @@ import ViewJob from './viewJob.js';
 import Job from './Job.js';
 import FormOfInformation from './Form.js';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import $ from 'jquery';
 
 // Mock Data
 
@@ -46,13 +47,18 @@ class App extends Component {
         this.state = {'data': data};
     }
 
-    // Creates a job component for each job request in the database
-    componentDidMount() {
-        let data = this.state.data;
+    retrieveDataFromServer() {
+        $.get('http://localhost:3000/api', (data) => {
         let jobs = data.map((dataPoint) => {
-            return <Job title={dataPoint.title} description={dataPoint.description} pay={dataPoint.pay} location={dataPoint.location}/>
+            return <Job title={dataPoint.title} description={dataPoint.description} pay={dataPoint.pay} location={dataPoint.address}/>
         });
         this.setState({'jobs': jobs});
+            // return JSON.parse(data);
+        });
+    }
+    // Creates a job component for each job request in the database
+    componentDidMount() {
+        this.retrieveDataFromServer();
     }
 
     render() {
@@ -69,6 +75,7 @@ class App extends Component {
                     <ul>
                         <li><Link to="/PostJob">PostJob</Link></li>
                         <li><Link to="/ViewJob">ViewJob</Link></li>
+                        {/*<button onClick={this.retrieveDataFromServer}></button>*/}
                     </ul>
                    <Route path="/PostJob" component={FormOfInformation} />
                    <Route path="/ViewJob" component={viewJob} />

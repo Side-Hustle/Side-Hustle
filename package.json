@@ -22,11 +22,14 @@
     "express": "^4.12.3",
     "gulp": "^3.9.0",
     "gulp-nodemon": "^2.0.3",
-    "jquery": "^2.1.4",
+    "history": "^4.6.3",
+    "jquery": "^2.2.4",
     "mongoose": "^4.11.1",
     "nodemon": "^1.11.0",
     "path": "^0.12.7",
-    "react": "^15.6.1"
+    "react": "^15.6.1",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1"
   },
   "devDependencies": {
     "babel": "^5.8.38",
